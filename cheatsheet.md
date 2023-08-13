@@ -4,6 +4,8 @@ redirect_from:
   - /cheatsheet
 ---
 
+# HowToGit
+
 ## Basics
 
 1. git init: to start a new repository
