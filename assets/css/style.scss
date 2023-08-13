@@ -1,0 +1,9 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+// Don't show title multiple times
+#content h1 {
+	display: none;
+}
