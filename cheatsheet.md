@@ -6,21 +6,26 @@ redirect_from:
 
 # HowToGit
 
+This git cheatsheet assumes you have at least some familiarity with git, but want to look up the commands to quickly perform actions on a repository.
+
 ## Basics
 
-1. git init: to start a new repository
-2. git status: checks your current state
-3. git add -A: To begin tracking files
-4. git commit -am: Commit all changes in the working directory with a message added on
-5. git switch -c [branch]: Create a branch and switch to it. (git checkout -b will do the same thing)
-6. git switch [branch]: switch between named branches
-7. git merge [branch]: merge named branch into current branch
-8. git branch [branch] -D: delete branch if not tracked
-9. git log --pretty=oneline: show a graph of commit history.
-11. git push
-12. git clone [repo]: Copy of a project/file onto your local computer.
-13. git rebase -i: helpful for developing on a local branch and rebasing it to the updated one
-14. git restore -- [file]: Reset changes made to file since last commit
+### Setup a new repository (project) and work on it
+
+- `git init`: Start a new repository
+- `git add -A`: Stage all changes (prepare for a commit)
+- `git add .`: Stage only new files and changes to tracked files
+- `git commit -m [message]`: Commit the staged changes with a message
+- `git push`: Upload local commits to origin
+
+### Get a remote repository
+
+- `git clone [repo]`: Copy a project onto your local computer
+
+### Show information about the repository
+
+- `git status`: Check your current repository state
+- `git log --pretty=oneline`: Show a graph of commit history
 
 ### More
 
@@ -30,6 +35,9 @@ redirect_from:
 
 #### VS Code Compare Changes to main:
 <https://stackoverflow.com/questions/44009551/is-there-a-way-to-see-git-diff-from-origin-master-using-visual-studio-code>
+
+#### Exit default git editor in the terminal:
+\[esc\], `:x!`, \[enter\]
 
 ## Changes, Search & Gitignore
 
@@ -55,6 +63,10 @@ Oldest commits first (that introduced the term): --reverse
 
 #### Get all modified files in branch:
 <https://stackoverflow.com/questions/10641361/get-all-files-that-have-been-modified-in-git-branch>
+
+#### Reset/Undo changes to a file since last commit:
+
+	git restore -- [file]
 
 #### Reset/Undo all local changes since last commit:
 <https://docs.gitlab.com/ee/topics/git/numerous_undo_possibilities_in_git/>
@@ -165,7 +177,32 @@ git stash push -p: <https://stackoverflow.com/questions/3040833/stash-only-one-f
 5. `git commit --amend`
 6. `git rebase --continue`
 
+#### Remove older commit:
+
+1. `git rebase -i HEAD~[n]` to list last *n* commits
+2. Remove the line of the commit that shall be deleted 
+
 ## Branches (Creating, Merging & Co.)
+
+#### Create branch and switch to it:
+
+	git checkout -b [branch]
+
+#### Switch to an existing branch:
+
+	git checkout [branch]
+
+#### List all local branches:
+
+	git branch
+
+#### List all remote branches:
+
+	git branch -a
+
+#### Merge branch into current branch (add commits from other branch):
+
+	git merge [branch]
 
 #### Merge multiple commits as one onto another branch:
 
@@ -175,8 +212,8 @@ git stash push -p: <https://stackoverflow.com/questions/3040833/stash-only-one-f
 
 #### Delete branch locally and remotely:
 
-	git push -d origin [branch]
-	git branch -d [branch]
+- Local: `git branch -d [branch]`
+- Remote: `git push -d origin [branch]`
 
 #### Force delete local branch:
 <https://www.git-tower.com/learn/git/faq/delete-local-branch>
@@ -202,6 +239,12 @@ git stash push -p: <https://stackoverflow.com/questions/3040833/stash-only-one-f
 
 	git branch -m NEWNAME
 
+#### Change remote for one branch (e.g. for branches on forks):
+<https://stackoverflow.com/questions/4878249/how-to-change-the-remote-a-branch-is-tracking>
+
+    git fetch REMOTENAME
+    git branch BRANCHNAME --set-upstream-to REMOTENAME/BRANCHNAME
+
 #### Merge and favor changes of own/other branch:
 <https://stackoverflow.com/a/33569970>
 
@@ -219,6 +262,10 @@ git stash push -p: <https://stackoverflow.com/questions/3040833/stash-only-one-f
 
 	git rebase --onto COMMITID OTHERBRANCH
 	git push --force-with-lease
+
+#### Interactive rebasing
+
+	git rebase -i
 
 #### change base of branch:
 <https://stackoverflow.com/a/10853956>
@@ -304,9 +351,14 @@ git stash push -p: <https://stackoverflow.com/questions/3040833/stash-only-one-f
 
 #### Initial config:
 
-  git config --global init.defaultBranch main
-  git config --global user.email "EMAIL"
-  git config --global user.name "USERNAME"
+	git config --global init.defaultBranch main
+	git config --global user.email "EMAIL"
+	git config --global user.name "USERNAME"
+
+#### Useful defaults:
+<https://spin.atomicobject.com/2020/05/05/git-configurations-default/>
+
+	git config --global diff.colorMoved zebra
 
 #### Git LFS:
 
