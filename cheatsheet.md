@@ -13,8 +13,7 @@ This git cheatsheet assumes you have at least some familiarity with git, but wan
 ### Setup a new repository (project) and work on it
 
 - `git init`: Start a new repository
-- `git add -A`: Stage all changes (prepare for a commit)
-- `git add .`: Stage only new files and changes to tracked files
+- `git add .`: Stage all changes (prepare for a commit)
 - `git commit -m [message]`: Commit the staged changes with a message
 - `git push`: Upload local commits to origin
 
@@ -89,11 +88,13 @@ Oldest commits first (that introduced the term): --reverse
 
 ### Stashes
 
-#### git stash...
-<https://stackoverflow.com/questions/15264553/how-to-unstash-only-certain-files>
+#### Stash only one file:
+<https://stackoverflow.com/questions/3040833/stash-only-one-file-out-of-multiple-files-that-have-changed-with-git>
 
-#### Stash only one file
-git stash push -p: <https://stackoverflow.com/questions/3040833/stash-only-one-file-out-of-multiple-files-that-have-changed-with-git>
+	git stash push -p
+
+#### Unstash only some files:
+<https://stackoverflow.com/questions/15264553/how-to-unstash-only-certain-files>
 
 #### Show changes in stash:
 <https://opensource.com/article/21/4/git-stash>
@@ -109,7 +110,7 @@ git stash push -p: <https://stackoverflow.com/questions/3040833/stash-only-one-f
 	git reset HEAD .
 	git checkout -f
 
-#### stage only unstashed changes:
+#### Stash only unstaged changes:
 
 	git stash push --keep-index
 
