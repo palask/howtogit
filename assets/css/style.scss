@@ -7,3 +7,8 @@
 #content h1 {
 	display: none;
 }
+
+// Revert this style so cards don't change appearance
+#content :first-child {
+	margin-top: 2rem;
+}
