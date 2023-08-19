@@ -9,6 +9,6 @@
 }
 
 // Revert this style so cards don't change appearance
-#content :first-child {
+#content .card > :first-child {
 	margin-top: 2rem;
 }
