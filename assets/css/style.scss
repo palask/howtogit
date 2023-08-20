@@ -12,3 +12,18 @@
 #content .card > :first-child {
 	margin-top: 2rem;
 }
+
+// Hide cards not matching the search term
+.is-hidden {
+	display: none;
+}
+
+// Set color of searchbox
+input {
+	color: #606c71;
+}
+
+// Style search container
+#search-container {
+	margin-top: 2rem;
+}

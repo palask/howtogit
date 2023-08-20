@@ -58,4 +58,34 @@ function wrapWithCardsInsideArea(workingArea, level, endLevel) {
 	}
 }
 
+function liveSearch() {
+	// Locate the card elements
+	let cards = document.querySelectorAll(".card")
+	// Locate the search input
+	let searchQuery = document.querySelector("#searchbox").value;
+
+	for (const card of cards) {
+		if (card.innerText.toLowerCase()
+			.includes(searchQuery.toLowerCase())) {
+			card.classList.remove("is-hidden");
+		} else {
+			card.classList.add("is-hidden");
+		}
+	}
+}
+
+function addSearchBox() {
+	const header = document.querySelector("header");
+	header.innerHTML += '<div id="search-container"><input type="search" id="searchbox" placeholder="Search"></input></div>';
+	let typingTimer;
+	const typeInterval = 500; // Half a second
+	const searchInput = document.querySelector("#searchbox");
+
+	searchInput.addEventListener("keyup", () => {
+		clearTimeout(typingTimer);
+		typingTimer = setTimeout(liveSearch, typeInterval);
+	});
+}
+
 wrapWithCardsInsideArea(document.querySelector("#content"), 2, 4);
+addSearchBox();
