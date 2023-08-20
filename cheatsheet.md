@@ -7,6 +7,7 @@ redirect_from:
 # HowToGit
 
 This git cheatsheet assumes you have at least some familiarity with git, but want to look up the commands to quickly perform actions on a repository.
+A square bracket within a command means that the brackets as well as the name in it needs to be replaced with the actual value. 
 
 ## Basics
 
@@ -14,12 +15,12 @@ This git cheatsheet assumes you have at least some familiarity with git, but wan
 
 - `git init`: Start a new repository
 - `git add .`: Stage all changes (prepare for a commit)
-- `git commit -m [message]`: Commit the staged changes with a message
+- `git commit -m [MESSAGE]`: Commit the staged changes with a message
 - `git push`: Upload local commits to origin
 
 ### Get a remote repository
 
-- `git clone [repo]`: Copy a project onto your local computer
+- `git clone [URL]`: Copy a project onto your local computer
 
 ### Show information about the repository
 
@@ -40,7 +41,7 @@ This git cheatsheet assumes you have at least some familiarity with git, but wan
 
 ## Changes, Search & Gitignore
 
-#### exclude pdfs from diff:
+#### exclude files by negative wildcard from diff (example: exclude pdfs):
 
 	git diff ':!*.pdf'
 
@@ -53,9 +54,9 @@ This git cheatsheet assumes you have at least some familiarity with git, but wan
 
 #### Search for recent commit containing a search term in its files:
 <https://stackoverflow.com/a/5816177>
-Oldest commits first (that introduced the term): --reverse
+Oldest commits first (that introduced the term): `--reverse`
 
-	git log --all --source -S "SEARCHTERM"
+	git log --all --source -S "[SEARCHTERM]"
 
 #### forget commited files now matched by .gitignore:
 <https://stackoverflow.com/questions/1274057/how-can-i-make-git-forget-about-a-file-that-was-tracked-but-is-now-in-gitign/19095988#19095988>
@@ -96,14 +97,14 @@ Oldest commits first (that introduced the term): --reverse
 #### Unstash only some files:
 <https://stackoverflow.com/questions/15264553/how-to-unstash-only-certain-files>
 
-#### Show changes in stash:
+#### Show changes in stash by index number:
 <https://opensource.com/article/21/4/git-stash>
 
-	git stash show stash@{0} -p
+	git stash show stash@{[INDEX]} -p
 
 #### Stash multiple files:
 
-	git stash -- FILE1 FILE2
+	git stash -- [FILE1] [FILE2]
 
 #### Abort / Undo stash pop with conflict:
 
@@ -118,15 +119,15 @@ Oldest commits first (that introduced the term): --reverse
 
 	git stash drop
 
-#### apply single stash:
+#### apply single stash by index number:
 
-	git stash apply INDEX
-	git stash drop stash@{INDEX}
+	git stash apply [INDEX]
+	git stash drop stash@{[INDEX]}
 
 #### Stash single file with message:
 <https://stackoverflow.com/questions/12420924/stash-just-a-single-file>
 
-	git stash push -m "MESSAGE" FILE
+	git stash push -m "[MESSAGE]" [FILE]
 
 ## Commits
 
@@ -165,33 +166,33 @@ Oldest commits first (that introduced the term): --reverse
 <https://stackoverflow.com/a/27721031>
 
 	git add FIXEDFILES
-	git commit --fixup=OLDCOMMITID
-	git rebase -i --autosquash OLDCOMMITID^
+	git commit --fixup=[OLDCOMMITID]
+	git rebase -i --autosquash [OLDCOMMITID]^
 
 #### remove changes to file from older commit:
 <https://stackoverflow.com/a/32528151>
 
-1. `git rebase -i OLDCOMMITID^1`
+1. `git rebase -i [OLDCOMMITID]^1`
 2. Mark the problem commit for edit in the editor by changing `pick` to `e`.
-3. `git show -- BADFILE | git apply -R`
-4. `git add BADFILE`
+3. `git show -- [BADFILE] | git apply -R`
+4. `git add [BADFILE]`
 5. `git commit --amend`
 6. `git rebase --continue`
 
 #### Remove older commit:
 
-1. `git rebase -i HEAD~[n]` to list last *n* commits
+1. `git rebase -i HEAD~[N]` to list last *N* commits
 2. Remove the line of the commit that shall be deleted 
 
 ## Branches (Creating, Merging & Co.)
 
 #### Create branch and switch to it:
 
-	git checkout -b [branch]
+	git checkout -b [BRANCH]
 
 #### Switch to an existing branch:
 
-	git checkout [branch]
+	git checkout [BRANCH]
 
 #### List all local branches:
 
@@ -203,18 +204,18 @@ Oldest commits first (that introduced the term): --reverse
 
 #### Merge branch into current branch (add commits from other branch):
 
-	git merge [branch]
+	git merge [BRANCH]
 
 #### Merge multiple commits as one onto another branch:
 
 	git checkout master
-	git merge --squash [branch]
+	git merge --squash [BRANCH]
 	git commit
 
 #### Delete branch locally and remotely:
 
-- Local: `git branch -d [branch]`
-- Remote: `git push -d origin [branch]`
+- Local: `git branch -d [BRANCH]`
+- Remote: `git push -d origin [BRANCH]`
 
 #### Force delete local branch:
 <https://www.git-tower.com/learn/git/faq/delete-local-branch>
@@ -227,7 +228,7 @@ Oldest commits first (that introduced the term): --reverse
 
 #### Get clean state of origin branch (overwrite all local commits and changes, force pull):
 
-	git reset --hard origin/master
+	git reset --hard origin/[BRANCH]
 
 #### Squash all commits on branch:
 <https://stackoverflow.com/questions/25356810/git-how-to-squash-all-commits-on-branch>
@@ -238,13 +239,13 @@ Oldest commits first (that introduced the term): --reverse
 #### rename branch (that you are currently working on):
 <https://stackoverflow.com/questions/6591213/how-do-i-rename-a-local-git-branch>
 
-	git branch -m NEWNAME
+	git branch -m [NEWNAME]
 
 #### Change remote for one branch (e.g. for branches on forks):
 <https://stackoverflow.com/questions/4878249/how-to-change-the-remote-a-branch-is-tracking>
 
-    git fetch REMOTENAME
-    git branch BRANCHNAME --set-upstream-to REMOTENAME/BRANCHNAME
+    git fetch [REMOTENAME]
+    git branch [BRANCHNAME] --set-upstream-to [REMOTENAME]/[BRANCHNAME]
 
 #### Merge and favor changes of own/other branch:
 <https://stackoverflow.com/a/33569970>
@@ -256,12 +257,12 @@ Oldest commits first (that introduced the term): --reverse
 
 #### Rebase branch onto other branch:
 
-	git rebase OTHERBRANCH
+	git rebase [OTHERBRANCH]
 	git push --force-with-lease
 
 #### Rebase branch onto (previous) commit of other branch:
 
-	git rebase --onto COMMITID OTHERBRANCH
+	git rebase --onto [COMMITID] [OTHERBRANCH]
 	git push --force-with-lease
 
 #### Interactive rebasing
@@ -289,11 +290,11 @@ Oldest commits first (that introduced the term): --reverse
 
 #### use incoming changes in case of conflicts in a file:
 
-	git checkout --theirs FILE
+	git checkout --theirs [FILE]
 
 #### fetch remote branch:
 
-	git fetch origin BRANCH
+	git fetch origin [BRANCH]
 
 #### fetch all branches:
 
@@ -302,7 +303,7 @@ Oldest commits first (that introduced the term): --reverse
 #### Change remote for all branches and push everything:
 <https://stackoverflow.com/questions/18801147/changing-the-git-remote-push-to-default>
 
-	git push -u <remote_name> --all
+	git push -u [REMOTENAME] --all
 
 #### Change remote url:
 <https://stackoverflow.com/questions/2432764/how-do-i-change-the-uri-url-for-a-remote-git-repository>
@@ -310,12 +311,12 @@ Oldest commits first (that introduced the term): --reverse
 #### Force pull (hard reset to origin) when origin commits were overwritten/rebased:
 <https://stackoverflow.com/questions/1125968/how-do-i-force-git-pull-to-overwrite-local-files>
 
-	git reset --hard origin/BRANCH
+	git reset --hard origin/[BRANCH]
 
 #### Pull changes of another branch (without checkout):
 <https://stackoverflow.com/questions/18857570/git-pull-without-checkout>
 
-	git fetch origin <branch>:<branch>
+	git fetch origin [BRANCH]:[BRANCH]
 
 ## Forks
 
@@ -329,7 +330,7 @@ Oldest commits first (that introduced the term): --reverse
 
 	git remote -v
 	git remote rename origin upstream
-	git remote add origin git@github...my-fork
+	git remote add origin [FORKURL]
 	git fetch origin
 
 ## Submodules
@@ -353,8 +354,8 @@ Oldest commits first (that introduced the term): --reverse
 #### Initial config:
 
 	git config --global init.defaultBranch main
-	git config --global user.email "EMAIL"
-	git config --global user.name "USERNAME"
+	git config --global user.email "[EMAIL]"
+	git config --global user.name "[USERNAME]"
 
 #### Useful defaults:
 <https://spin.atomicobject.com/2020/05/05/git-configurations-default/>
