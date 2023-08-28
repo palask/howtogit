@@ -18,12 +18,11 @@
 	display: none;
 }
 
-// Set color of searchbox
-input {
-	color: #606c71;
-}
-
 // Style search container
 #search-container {
 	margin-top: 2rem;
+}
+#search-container input {
+	color: #606c71;
+	padding: 0.5rem 0.75rem;
 }

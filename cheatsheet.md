@@ -33,6 +33,8 @@ A square bracket within a command means that the brackets as well as the name in
 
 <https://ohshitgit.com>
 
+GitFlow Workflow: <https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow>
+
 #### VS Code Compare Changes to main:
 <https://stackoverflow.com/questions/44009551/is-there-a-way-to-see-git-diff-from-origin-master-using-visual-studio-code>
 
@@ -41,15 +43,15 @@ A square bracket within a command means that the brackets as well as the name in
 
 ## Changes, Search & Gitignore
 
-#### exclude files by negative wildcard from diff (example: exclude pdfs):
+#### Exclude files by negative wildcard from diff (example: exclude pdfs):
 
 	git diff ':!*.pdf'
 
-#### diff staged files:
+#### Show diff of staged files:
 
 	git diff --staged
 
-#### diff for one file:
+#### Show diff for one file:
 <https://stackoverflow.com/questions/5586383/how-to-diff-one-file-to-an-arbitrary-version-in-git>
 
 #### Search for recent commit containing a search term in its files:
@@ -58,7 +60,7 @@ Oldest commits first (that introduced the term): `--reverse`
 
 	git log --all --source -S "[SEARCHTERM]"
 
-#### forget commited files now matched by .gitignore:
+#### Forget commited files now matched by .gitignore:
 <https://stackoverflow.com/questions/1274057/how-can-i-make-git-forget-about-a-file-that-was-tracked-but-is-now-in-gitign/19095988#19095988>
 
 #### Get all modified files in branch:
@@ -66,7 +68,7 @@ Oldest commits first (that introduced the term): `--reverse`
 
 #### Reset/Undo changes to a file since last commit:
 
-	git restore -- [file]
+	git restore -- [FILE]
 
 #### Reset/Undo all local changes since last commit:
 <https://docs.gitlab.com/ee/topics/git/numerous_undo_possibilities_in_git/>
@@ -115,11 +117,11 @@ Oldest commits first (that introduced the term): `--reverse`
 
 	git stash push --keep-index
 
-#### delete last stash:
+#### Delete last stash:
 
 	git stash drop
 
-#### apply single stash by index number:
+#### Apply single stash by index number:
 
 	git stash apply [INDEX]
 	git stash drop stash@{[INDEX]}
@@ -139,7 +141,7 @@ Oldest commits first (that introduced the term): `--reverse`
 #### See changes in a commit:
 <https://stackoverflow.com/questions/17563726/how-can-i-see-the-changes-in-a-git-commit>
 
-#### amend:
+#### Amend to last commit:
 <https://www.atlassian.com/de/git/tutorials/rewriting-history>
 
 #### Change last commit message:
@@ -154,22 +156,22 @@ Oldest commits first (that introduced the term): `--reverse`
 2. Replace "pick" with "reword" before respective commit.
 3. Save files and edit the commit file that opens and save it as well.
 
-#### undo commit command:
+#### Undo commit and keep changes:
 <https://stackoverflow.com/questions/15772134/can-i-delete-a-git-commit-but-keep-the-changes>
 
 	git reset HEAD^
 
-#### undo last commit:
+#### Undo last commit without keeping changes:
 	git reset --soft HEAD~1
 
-#### add changes to older commit:
+#### Add changes to older commit:
 <https://stackoverflow.com/a/27721031>
 
 	git add FIXEDFILES
 	git commit --fixup=[OLDCOMMITID]
 	git rebase -i --autosquash [OLDCOMMITID]^
 
-#### remove changes to file from older commit:
+#### Remove changes to file from older commit:
 <https://stackoverflow.com/a/32528151>
 
 1. `git rebase -i [OLDCOMMITID]^1`
@@ -226,14 +228,13 @@ Oldest commits first (that introduced the term): `--reverse`
 #### Fix origin of current branch (after rename):
 <https://stackoverflow.com/a/48100062>
 
-#### Get clean state of origin branch (overwrite all local commits and changes, force pull):
-
-	git reset --hard origin/[BRANCH]
-
 #### Squash all commits on branch:
 <https://stackoverflow.com/questions/25356810/git-how-to-squash-all-commits-on-branch>
 
-#### put last commit on new branch:
+#### Squash and rebase:
+<https://www.jenweber.dev/how-to-squash-and-rebase/>
+
+#### Put last commit on new branch:
 <https://stackoverflow.com/questions/1628563/move-the-most-recent-commits-to-a-new-branch-with-git>
 
 #### rename branch (that you are currently working on):
@@ -284,19 +285,19 @@ Oldest commits first (that introduced the term): `--reverse`
 
 ## Remote / Origin / Upstream
 
-#### git pull and use incoming changes in case of conflicts:
+#### Pull and use incoming changes in case of conflicts:
 
 	git pull -X theirs
 
-#### use incoming changes in case of conflicts in a file:
+#### Use incoming changes in case of conflicts in a file:
 
 	git checkout --theirs [FILE]
 
-#### fetch remote branch:
+#### Fetch remote branch:
 
 	git fetch origin [BRANCH]
 
-#### fetch all branches:
+#### Fetch all branches:
 
 	git fetch --all
 
@@ -308,7 +309,7 @@ Oldest commits first (that introduced the term): `--reverse`
 #### Change remote url:
 <https://stackoverflow.com/questions/2432764/how-do-i-change-the-uri-url-for-a-remote-git-repository>
 
-#### Force pull (hard reset to origin) when origin commits were overwritten/rebased:
+#### Force pull (hard reset to origin, get clean state) when origin commits were overwritten/rebased:
 <https://stackoverflow.com/questions/1125968/how-do-i-force-git-pull-to-overwrite-local-files>
 
 	git reset --hard origin/[BRANCH]
@@ -325,13 +326,20 @@ Oldest commits first (that introduced the term): `--reverse`
 <https://docs.github.com/en/get-started/quickstart/fork-a-repo>
 <https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow>
 
-#### change remote to fork:
+#### Change remote to fork:
 <https://gist.github.com/jagregory/710671>
 
 	git remote -v
 	git remote rename origin upstream
 	git remote add origin [FORKURL]
 	git fetch origin
+
+#### Checkout a branch from a fork:
+<https://stackoverflow.com/questions/1783405/how-do-i-check-out-a-remote-git-branch>
+
+	git remote add [REMOTENAME] [REMOTEURL]
+	git fetch [REMOTENAME]
+	git checkout [BRANCHNAME]
 
 ## Submodules
 
