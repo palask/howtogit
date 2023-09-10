@@ -89,6 +89,10 @@ Oldest commits first (that introduced the term): `--reverse`
 
 	git apply --reject --whitespace=fix changes.patch
 
+#### Reverse / undo apply patch:
+
+	git apply changes.patch --reverse
+
 ### Stashes
 
 #### Stash only one file:
@@ -121,6 +125,10 @@ Oldest commits first (that introduced the term): `--reverse`
 
 	git stash drop
 
+#### Apply and remove / delete last created stash:
+
+	git stash pop
+
 #### Apply single stash by index number:
 
 	git stash apply [INDEX]
@@ -131,9 +139,14 @@ Oldest commits first (that introduced the term): `--reverse`
 
 	git stash push -m "[MESSAGE]" [FILE]
 
+#### Save stash by index number as a patch:
+<https://stackoverflow.com/questions/3973034/export-a-stash-to-another-computer>
+
+	git stash show stash@{[INDEX]} -p > changes.patch
+
 ## Commits
 
-#### Remove last commit locally and remotely:
+#### Remove / delete last commit locally and remotely:
 
 	git reset HEAD^ # remove commit locally
 	git push origin +HEAD # force-push the new HEAD commit
@@ -184,7 +197,11 @@ Oldest commits first (that introduced the term): `--reverse`
 #### Remove older commit:
 
 1. `git rebase -i HEAD~[N]` to list last *N* commits
-2. Remove the line of the commit that shall be deleted 
+2. Remove the line of the commit that shall be deleted
+
+#### Remove initial commit if there are no other commits, but keep changes staged:
+
+	git update-ref -d HEAD
 
 ## Branches (Creating, Merging & Co.)
 
@@ -195,6 +212,16 @@ Oldest commits first (that introduced the term): `--reverse`
 #### Switch to an existing branch:
 
 	git checkout [BRANCH]
+
+#### Switch to last active branch (from detached head):
+<https://stackoverflow.com/questions/11801071/git-how-to-return-from-detached-head-state>
+
+	git checkout -
+
+#### Switch to remote branch:
+<https://www.git-tower.com/learn/git/faq/checkout-remote-branch>
+
+	git checkout --track [REMOTENAME]/[BRANCHNAME]
 
 #### List all local branches:
 
@@ -323,7 +350,9 @@ Oldest commits first (that introduced the term): `--reverse`
 
 #### Working on forks:
 <https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/configuring-a-remote-for-a-fork>
+
 <https://docs.github.com/en/get-started/quickstart/fork-a-repo>
+
 <https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow>
 
 #### Change remote to fork:
@@ -364,6 +393,10 @@ Oldest commits first (that introduced the term): `--reverse`
 	git config --global init.defaultBranch main
 	git config --global user.email "[EMAIL]"
 	git config --global user.name "[USERNAME]"
+
+#### Show full config:
+
+	git config --list
 
 #### Useful defaults:
 <https://spin.atomicobject.com/2020/05/05/git-configurations-default/>

@@ -60,13 +60,30 @@ function wrapWithCardsInsideArea(workingArea, level, endLevel) {
 
 function liveSearch() {
 	// Locate the card elements
-	let cards = document.querySelectorAll(".card")
+	const cards = document.querySelectorAll(".card")
 	// Locate the search input
-	let searchQuery = document.querySelector("#searchbox").value;
+	const searchQuery = document.querySelector("#searchbox").value;
+	// Get individual search terms separated by a space
+	const searchTerms = searchQuery.toLowerCase().split(" ");
 
 	for (const card of cards) {
-		if (card.innerText.toLowerCase()
-			.includes(searchQuery.toLowerCase())) {
+		// Case insensitive check if all required search terms are in card and adverse search terms are not in card
+		const cardText = card.innerText.toLowerCase();
+		const hasCardsInSide = card.querySelector(".card") !== null;
+		let validSearchTerms = 0;
+
+		for (const term of searchTerms) {
+			const requiredTerm = !term.startsWith("-");
+			const requiredTermExists = requiredTerm && cardText.includes(term);
+			// Don't exclude whole sections because of an adverse term in one card
+			const adverseTermMissing = !requiredTerm && (hasCardsInSide ? true : !cardText.includes(term.substr(1)));
+
+			if (requiredTermExists || adverseTermMissing) {
+				validSearchTerms++;
+			}
+		}
+
+		if (validSearchTerms == searchTerms.length) {
 			card.classList.remove("is-hidden");
 		} else {
 			card.classList.add("is-hidden");
