@@ -21,6 +21,7 @@ A square bracket within a command means that the brackets as well as the name in
 ### Get a remote repository
 
 - `git clone [URL]`: Copy a project onto your local computer
+- `git clone [URL] -b [BRANCH]`: Clone from (and switch to) specified branch
 
 ### Show information about the repository
 
@@ -74,6 +75,11 @@ Oldest commits first (that introduced the term): `--reverse`
 <https://docs.gitlab.com/ee/topics/git/numerous_undo_possibilities_in_git/>
 
 	git reset -–hard
+
+#### Stage a file for removal without removing it from the working directory:
+<https://stackoverflow.com/questions/38001223/what-is-the-difference-between-git-rm-cached-and-git-reset-file>
+
+	git rm --cached [FILE]
 
 #### Create a patch with changes of tracked files:
 <https://www.specbee.com/blogs/how-create-and-apply-patch-git-diff-and-git-apply-commands-your-drupal-website>
@@ -203,6 +209,24 @@ Oldest commits first (that introduced the term): `--reverse`
 
 	git update-ref -d HEAD
 
+#### Add single commit from other branch (cherry-pick):
+<https://stackoverflow.com/questions/9339429/what-does-cherry-picking-a-commit-with-git-mean>
+
+	git cherry-pick <COMMITID>
+
+#### Sign commits with ssh key:
+<https://git.openlogisticsfoundation.org/help/user/project/repository/signed_commits/ssh.md>
+
+	git config --global gpg.format ssh
+	git config --global commit.gpgsign true
+	git config --global user.signingkey ~/.ssh/[KEYFILE].pub
+
+#### Add tag for the current commit:
+<https://stackoverflow.com/questions/18216991/create-a-tag-in-a-github-repository>
+
+1. `git tag [TAGNAME]`
+2. To push all tags: `git push origin --tags`
+
 ## Branches (Creating, Merging & Co.)
 
 #### Create branch and switch to it:
@@ -296,6 +320,10 @@ Oldest commits first (that introduced the term): `--reverse`
 #### Interactive rebasing
 
 	git rebase -i
+
+#### Interactive rebasing from first commit on / with all commits
+
+	git rebase -i --root
 
 #### change base of branch:
 <https://stackoverflow.com/a/10853956>
@@ -397,6 +425,19 @@ Oldest commits first (that introduced the term): `--reverse`
 #### Show full config:
 
 	git config --list
+
+#### Change author in previous commits:
+<https://www.git-tower.com/learn/git/faq/change-author-name-email>
+
+1. `git rebase -i` ([Interactive rebasing](#interactive-rebasing))
+2. Mark commits to change with `edit`
+3. For each commit:
+	1. `git commit --amend --author="[USERNAME] <[EMAIL]>" --no-edit`
+	2. `git rebase --continue`
+
+
+#### Multiple author identities:
+<https://garrit.xyz/posts/2023-10-13-organizing-multiple-git-identities>
 
 #### Useful defaults:
 <https://spin.atomicobject.com/2020/05/05/git-configurations-default/>
