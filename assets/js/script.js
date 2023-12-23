@@ -1,3 +1,11 @@
+const synonyms = [
+	["remove", "delete", "clear"],
+	["reset", "undo", "revert", "reverse", "abort"],
+	["remote", "origin", "upstream"],
+	["add", "append"],
+	["search", "find"]
+];
+
 function wrapWithCardsInsideArea(workingArea, level, endLevel) {
 	// Get all headings of level that are direct children of the workingArea element
 	const headingsNodeList = workingArea.querySelectorAll(":scope > h" + level.toString());
@@ -58,13 +66,30 @@ function wrapWithCardsInsideArea(workingArea, level, endLevel) {
 	}
 }
 
+function replaceSynonyms(searchterms) {
+  return searchterms.map(searchterm => {
+    // Find the synonym group that contains the first value matching the searchterm
+    const synonymGroup = synonyms.find(group => group.includes(searchterm));
+
+    // If a synonym group is found and the first value is not already the searchterm, replace synonyms
+    if (synonymGroup && synonymGroup[0] !== searchterm) {
+      // Replace the synonym if found in searchterm
+      for (const synonym of synonymGroup) {
+        searchterm = searchterm.replace(new RegExp(`\\b${synonym}\\b`, 'gi'), synonymGroup[0]);
+      }
+    }
+
+    return searchterm;
+  });
+}
+
 function liveSearch() {
 	// Locate the card elements
 	const cards = document.querySelectorAll(".card")
 	// Locate the search input
 	const searchQuery = document.querySelector("#searchbox").value;
-	// Get individual search terms separated by a space
-	const searchTerms = searchQuery.toLowerCase().split(" ");
+	// Get individual search terms separated by a space and replace the synonyms
+	const searchTerms = replaceSynonyms(searchQuery.toLowerCase().split(" "));
 
 	for (const card of cards) {
 		// Case insensitive check if all required search terms are in card and adverse search terms are not in card

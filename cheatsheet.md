@@ -73,11 +73,11 @@ Oldest commits first (that introduced the term): `--reverse`
 #### Get all modified files in branch:
 <https://stackoverflow.com/questions/10641361/get-all-files-that-have-been-modified-in-git-branch>
 
-#### Reset/Undo changes to a file since last commit:
+#### Reset changes to a file since last commit:
 
 	git restore -- [FILE]
 
-#### Reset/Undo all local changes since last commit:
+#### Reset all local changes since last commit:
 <https://docs.gitlab.com/ee/topics/git/numerous_undo_possibilities_in_git/>
 
 	git reset -–hard
@@ -101,7 +101,7 @@ Oldest commits first (that introduced the term): `--reverse`
 
 	git apply --reject --whitespace=fix changes.patch
 
-#### Reverse / undo apply patch:
+#### Undo apply patch:
 
 	git apply changes.patch --reverse
 
@@ -124,7 +124,7 @@ Oldest commits first (that introduced the term): `--reverse`
 
 	git stash -- [FILE1] [FILE2]
 
-#### Abort / Undo stash pop with conflict:
+#### Undo stash pop with conflict:
 
 	git reset HEAD .
 	git checkout -f
@@ -133,11 +133,11 @@ Oldest commits first (that introduced the term): `--reverse`
 
 	git stash push --keep-index
 
-#### Delete last stash:
+#### Remove last stash:
 
 	git stash drop
 
-#### Apply and remove / delete last created stash:
+#### Apply and remove last created stash:
 
 	git stash pop
 
@@ -158,10 +158,10 @@ Oldest commits first (that introduced the term): `--reverse`
 
 ## Commits
 
-#### Remove / delete last commit locally and remotely:
+#### Remove last commit locally and remotely:
 
-	git reset HEAD^ # remove commit locally
-	git push origin +HEAD # force-push the new HEAD commit
+1. Remove commit locally: `git reset HEAD^`
+2. Force-push the new HEAD commit: `git push origin +HEAD`
 
 #### See changes in a commit:
 <https://stackoverflow.com/questions/17563726/how-can-i-see-the-changes-in-a-git-commit>
@@ -271,18 +271,23 @@ Oldest commits first (that introduced the term): `--reverse`
 	git merge --squash [BRANCH]
 	git commit
 
-#### Delete branch locally and remotely:
+#### Remove branch locally and remotely:
 
 - Local: `git branch -d [BRANCH]`
 - Remote: `git push -d origin [BRANCH]`
 
-#### Force delete local branch:
+#### Remove local branch:
 <https://www.git-tower.com/learn/git/faq/delete-local-branch>
 
-#### Delete remote branch:
+- Safe removal (checks if merged etc.): `git branch -d [BRANCH]`
+- Force removal: `git branch -D [BRANCH]`
+
+#### Remove remote branch:
 <https://www.git-tower.com/learn/git/faq/delete-remote-branch>
 
-#### Remove/clear all commits from branch on repository:
+`git push origin --delete [BRANCH]`
+
+#### Remove all commits from branch on repository:
 
 1. Create empty folder
 2. `git init`
@@ -314,7 +319,7 @@ Oldest commits first (that introduced the term): `--reverse`
     git fetch [REMOTENAME]
     git branch [BRANCHNAME] --set-upstream-to [REMOTENAME]/[BRANCHNAME]
 
-#### Merge and favor changes of own/other branch:
+#### Merge and favor changes of own or other branch:
 <https://stackoverflow.com/a/33569970>
 
 #### Rename master to main in new repo:
@@ -336,24 +341,24 @@ Oldest commits first (that introduced the term): `--reverse`
 
 	git rebase -i
 
-#### Interactive rebasing from first commit on / with all commits
+#### Interactive rebasing from first commit on (with all commits)
 
 	git rebase -i --root
 
-#### change base of branch:
+#### Change base of branch:
 <https://stackoverflow.com/a/10853956>
 
-#### abort rebase:
+#### Abort rebase:
 
 	git rebase --abort
 
-#### rebase with merge conflict handling:
+#### Rebase with merge conflict handling:
 <https://demisx.github.io/git/rebase/2015/07/02/git-rebase-keep-my-branch-changes.html>
 
-#### rebase without changing commit dates when there are merge conflicts:
+#### Rebase without changing commit dates when there are merge conflicts:
 <https://stackoverflow.com/a/2976598>
 
-## Remote / Origin / Upstream
+## Remote (Origin / Upstream)
 
 #### Pull and use incoming changes in case of conflicts:
 
@@ -415,12 +420,12 @@ Oldest commits first (that introduced the term): `--reverse`
 
 ## Submodules
 
-#### Initializing submodules (also when new ones were added to the repo):
+#### Initialize submodules (also when new ones were added to the repo):
 <https://openmetric.org/til/programming/git-pull-with-submodule/>
 
 	git submodule update --init --recursive
 
-#### Updating Submodules:
+#### Update submodules:
 
 	git pull --recurse-submodules
 
@@ -450,13 +455,13 @@ Oldest commits first (that introduced the term): `--reverse`
 	1. `git commit --amend --author="[USERNAME] <[EMAIL]>" --no-edit`
 	2. `git rebase --continue`
 
-
-#### Multiple author identities:
+#### Multiple author identities (different identity per repo):
 <https://garrit.xyz/posts/2023-10-13-organizing-multiple-git-identities>
 
 #### Useful defaults:
 <https://spin.atomicobject.com/2020/05/05/git-configurations-default/>
 
+	git config --global pull.rebase true
 	git config --global diff.colorMoved zebra
 
 #### Git LFS:

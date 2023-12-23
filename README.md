@@ -8,4 +8,3 @@ Source code for the [Git Cheatsheet](https://palask.github.io/howtogit/).
 - [ ] Collapsible top cards at h2 and h3 levels
 - [ ] Sticky header that gets smaller (inline) when scrolling down
 - [ ] Highlight square brackets for variables
-- [ ] Synonyms for search (e.g. delete/clear/remove, last/previous)
