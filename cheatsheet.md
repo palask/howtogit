@@ -64,6 +64,12 @@ Oldest commits first (that introduced the term): `--reverse`
 #### Forget commited files now matched by .gitignore:
 <https://stackoverflow.com/questions/1274057/how-can-i-make-git-forget-about-a-file-that-was-tracked-but-is-now-in-gitign/19095988#19095988>
 
+#### Global or repo-specific .gitignore just for the current user:
+<https://stackoverflow.com/a/5724484>
+
+- Global: `git config --global core.excludesfile $HOME/.gitignore`
+- Repo-specific: Edit `.git/info/exclude`
+
 #### Get all modified files in branch:
 <https://stackoverflow.com/questions/10641361/get-all-files-that-have-been-modified-in-git-branch>
 
@@ -212,7 +218,7 @@ Oldest commits first (that introduced the term): `--reverse`
 #### Add single commit from other branch (cherry-pick):
 <https://stackoverflow.com/questions/9339429/what-does-cherry-picking-a-commit-with-git-mean>
 
-	git cherry-pick <COMMITID>
+	git cherry-pick [COMMITID]
 
 #### Sign commits with ssh key:
 <https://git.openlogisticsfoundation.org/help/user/project/repository/signed_commits/ssh.md>
@@ -276,6 +282,15 @@ Oldest commits first (that introduced the term): `--reverse`
 #### Delete remote branch:
 <https://www.git-tower.com/learn/git/faq/delete-remote-branch>
 
+#### Remove/clear all commits from branch on repository:
+
+1. Create empty folder
+2. `git init`
+3. `git commit --allow-empty -m "Initial commit"`
+4. `git remote add origin [URL]`
+5. `git branch --set-upstream [BRANCH] origin/[BRANCH]`
+6. `git push -f`
+
 #### Fix origin of current branch (after rename):
 <https://stackoverflow.com/a/48100062>
 
@@ -288,7 +303,7 @@ Oldest commits first (that introduced the term): `--reverse`
 #### Put last commit on new branch:
 <https://stackoverflow.com/questions/1628563/move-the-most-recent-commits-to-a-new-branch-with-git>
 
-#### rename branch (that you are currently working on):
+#### Rename branch (that you are currently working on):
 <https://stackoverflow.com/questions/6591213/how-do-i-rename-a-local-git-branch>
 
 	git branch -m [NEWNAME]
@@ -302,7 +317,7 @@ Oldest commits first (that introduced the term): `--reverse`
 #### Merge and favor changes of own/other branch:
 <https://stackoverflow.com/a/33569970>
 
-#### rename master to main in new repo:
+#### Rename master to main in new repo:
 <https://stackoverflow.com/questions/64787301/git-init-b-branch-name-command-in-terminal-is-throwing-an-unknown-switch/65415870#65415870>
 
 ### Rebasing
