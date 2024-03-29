@@ -1,3 +1,5 @@
+"use strict";
+
 const synonyms = [
 	["remove", "delete", "clear"],
 	["reset", "undo", "revert", "reverse", "abort"],
@@ -8,7 +10,7 @@ const synonyms = [
 
 function wrapWithCardsInsideArea(workingArea, level, endLevel) {
 	// Get all headings of level that are direct children of the workingArea element
-	const headingsNodeList = workingArea.querySelectorAll(":scope > h" + level.toString());
+	const headingsNodeList = workingArea.querySelectorAll(`:scope > h${level}`);
 	// Convert NodeList to Array
 	const headings = [...headingsNodeList];
 
@@ -56,6 +58,9 @@ function wrapWithCardsInsideArea(workingArea, level, endLevel) {
 		// Create a card div with the DocumentFragment inside and insert it
 		let cardDiv = document.createElement("div");
 		cardDiv.classList.add("card");
+		if (heading.tagName == `H${endLevel}`) {
+			cardDiv.classList.add("entry-card");
+		}
 		cardDiv.appendChild(fragment);
 		cardDiv = workingArea.insertBefore(cardDiv, nextUnrelatedElement);
 
@@ -67,41 +72,44 @@ function wrapWithCardsInsideArea(workingArea, level, endLevel) {
 }
 
 function replaceSynonyms(searchterms) {
-  return searchterms.map(searchterm => {
-    // Find the synonym group that contains the first value matching the searchterm
-    const synonymGroup = synonyms.find(group => group.includes(searchterm));
+	return searchterms.map(searchterm => {
+		// Find the synonym group that contains the first value matching the searchterm
+		const synonymGroup = synonyms.find(group => group.includes(searchterm));
 
-    // If a synonym group is found and the first value is not already the searchterm, replace synonyms
-    if (synonymGroup && synonymGroup[0] !== searchterm) {
-      // Replace the synonym if found in searchterm
-      for (const synonym of synonymGroup) {
-        searchterm = searchterm.replace(new RegExp(`\\b${synonym}\\b`, 'gi'), synonymGroup[0]);
-      }
-    }
+		// If a synonym group is found and the first value is not already the searchterm, replace synonyms
+		if (synonymGroup && synonymGroup[0] !== searchterm) {
+			// Replace the synonym if found in searchterm
+			for (const synonym of synonymGroup) {
+				searchterm = searchterm.replace(new RegExp(`\\b${synonym}\\b`, 'gi'), synonymGroup[0]);
+			}
+		}
 
-    return searchterm;
-  });
+		return searchterm;
+	});
 }
 
 function liveSearch() {
 	// Locate the card elements
-	const cards = document.querySelectorAll(".card")
+	const entryCards = document.querySelectorAll(".entry-card");
 	// Locate the search input
-	const searchQuery = document.querySelector("#searchbox").value;
+	const searchInput = document.querySelector("#searchbox");
+	if (!searchInput) {
+		throw Error("Searchbox does not exist");
+	}
+	const searchQuery = searchInput.value;
 	// Get individual search terms separated by a space and replace the synonyms
 	const searchTerms = replaceSynonyms(searchQuery.toLowerCase().split(" "));
 
-	for (const card of cards) {
+	const visibleParents = [];
+	for (const card of entryCards) {
 		// Case insensitive check if all required search terms are in card and adverse search terms are not in card
 		const cardText = card.innerText.toLowerCase();
-		const hasCardsInSide = card.querySelector(".card") !== null;
 		let validSearchTerms = 0;
 
 		for (const term of searchTerms) {
 			const requiredTerm = !term.startsWith("-");
 			const requiredTermExists = requiredTerm && cardText.includes(term);
-			// Don't exclude whole sections because of an adverse term in one card
-			const adverseTermMissing = !requiredTerm && (hasCardsInSide ? true : !cardText.includes(term.substr(1)));
+			const adverseTermMissing = !requiredTerm && !cardText.includes(term.substr(1));
 
 			if (requiredTermExists || adverseTermMissing) {
 				validSearchTerms++;
@@ -110,19 +118,40 @@ function liveSearch() {
 
 		if (validSearchTerms == searchTerms.length) {
 			card.classList.remove("is-hidden");
+
+			let parent = card.parentElement;
+			// Also make parent cards visible
+			while (parent?.classList.contains("card")) {
+				visibleParents.push(parent);
+				parent.classList.remove("is-hidden");
+				parent = parent.parentElement;
+			}
 		} else {
 			card.classList.add("is-hidden");
+
+			let parent = card.parentElement;
+			// Also hide parent cards if they were not set to visible already
+			while (parent?.classList.contains("card") && !visibleParents.includes(parent)) {
+				parent.classList.add("is-hidden");
+				parent = parent.parentElement;
+			}
 		}
 	}
 }
 
 function addSearchBox() {
 	const header = document.querySelector("header");
+	if (!header) {
+		throw Error("Header does not exist");
+	}
 	header.innerHTML += '<div id="search-container"><input type="search" id="searchbox" placeholder="Search"></input></div>';
 	let typingTimer;
 	const typeInterval = 500; // Half a second
-	const searchInput = document.querySelector("#searchbox");
 
+	const searchInput = document.querySelector("#searchbox");
+	if (!searchInput) {
+		throw Error("Searchbox does not exist");
+	}
 	searchInput.addEventListener("keyup", () => {
 		clearTimeout(typingTimer);
 		typingTimer = setTimeout(liveSearch, typeInterval);
