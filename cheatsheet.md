@@ -11,36 +11,22 @@ A square bracket within a command means that the brackets as well as the name in
 
 ## Basics
 
-### Setup a new repository (project) and work on it
+#### Setup a new repository (project) and work on it
 
 - `git init`: Start a new repository
 - `git add .`: Stage all changes (prepare for a commit)
 - `git commit -m [MESSAGE]`: Commit the staged changes with a message
 - `git push`: Upload local commits to origin
 
-### Get a remote repository
+#### Get a remote repository
 
 - `git clone [URL]`: Copy a project onto your local computer
 - `git clone [URL] -b [BRANCH]`: Clone from (and switch to) specified branch
 
-### Show information about the repository
+#### Show information about the repository
 
 - `git status`: Check your current repository state
 - `git log --pretty=oneline`: Show a graph of commit history
-
-### More
-
-<https://gitsheet.wtf/>
-
-<https://ohshitgit.com>
-
-GitFlow Workflow: <https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow>
-
-#### VS Code Compare Changes to main:
-<https://stackoverflow.com/questions/44009551/is-there-a-way-to-see-git-diff-from-origin-master-using-visual-studio-code>
-
-#### Exit default git editor in the terminal:
-\[esc\], `:x!`, \[enter\]
 
 ## Changes, Search & Gitignore
 
@@ -51,6 +37,10 @@ GitFlow Workflow: <https://www.atlassian.com/git/tutorials/comparing-workflows/g
 #### Show diff of staged files:
 
 	git diff --staged
+
+### Show diff against changes since last commit:
+
+	git diff HEAD^ [FILENAME]
 
 #### Show diff for one file:
 <https://stackoverflow.com/questions/5586383/how-to-diff-one-file-to-an-arbitrary-version-in-git>
@@ -227,10 +217,21 @@ Oldest commits first (that introduced the term): `--reverse`
 	git config --global commit.gpgsign true
 	git config --global user.signingkey ~/.ssh/[KEYFILE].pub
 
+## Tags
+
+### List all tags
+
+	git tag
+
 #### Add tag for the current commit:
 <https://stackoverflow.com/questions/18216991/create-a-tag-in-a-github-repository>
 
 1. `git tag [TAGNAME]`
+2. To push all tags: `git push origin --tags`
+
+#### Add tag for a commit:
+
+1. `git tag [TAGNAME] [COMMITID]`
 2. To push all tags: `git push origin --tags`
 
 ## Branches (Creating, Merging & Co.)
@@ -238,6 +239,11 @@ Oldest commits first (that introduced the term): `--reverse`
 #### Create branch and switch to it:
 
 	git checkout -b [BRANCH]
+
+#### Create branch from a previous commit:
+<https://stackoverflow.com/questions/2816715/branch-from-a-previous-commit-using-git>
+
+	git branch -b [BRANCH] [COMMITID]
 
 #### Switch to an existing branch:
 
@@ -460,9 +466,11 @@ Oldest commits first (that introduced the term): `--reverse`
 
 #### Useful defaults:
 <https://spin.atomicobject.com/2020/05/05/git-configurations-default/>
+<https://jvns.ca/blog/2024/02/16/popular-git-config-options/>
 
 	git config --global pull.rebase true
 	git config --global diff.colorMoved zebra
+	git config --global rebase.autosquash true
 
 #### Git LFS:
 
@@ -474,3 +482,23 @@ Oldest commits first (that introduced the term): `--reverse`
 
 #### autoSetupRemote:
 <https://twitter.com/SantoshYadavDev/status/1558086948484530177>
+
+## More
+
+<https://www.cheatsheet.wtf/Git/>
+
+<https://ohshitgit.com>
+
+<https://developers.redhat.com/articles/2023/08/02/beginners-guide-git-version-control>
+
+GitFlow Workflow: <https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow>
+
+#### Git Tools / Helpers
+
+- <https://github.com/jesseduffield/lazygit>
+
+#### VS Code Compare Changes to main:
+<https://stackoverflow.com/questions/44009551/is-there-a-way-to-see-git-diff-from-origin-master-using-visual-studio-code>
+
+#### Exit default git editor in the terminal:
+\[esc\], `:x!`, \[enter\]

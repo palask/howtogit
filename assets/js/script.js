@@ -8,6 +8,11 @@ const synonyms = [
 	["search", "find"]
 ];
 
+/**
+ * @param {Element} workingArea
+ * @param {number} level
+ * @param {number} endLevel
+ */
 function wrapWithCardsInsideArea(workingArea, level, endLevel) {
 	// Get all headings of level that are direct children of the workingArea element
 	const headingsNodeList = workingArea.querySelectorAll(`:scope > h${level}`);
@@ -16,6 +21,9 @@ function wrapWithCardsInsideArea(workingArea, level, endLevel) {
 
 	while (headings.length > 0) {
 		const heading = headings.shift();
+		if (!heading) {
+			throw Error("Heading does not exist");
+		}
 
 		// Get the next heading of the same level
 		let nextUnrelatedElement = null;
@@ -47,7 +55,11 @@ function wrapWithCardsInsideArea(workingArea, level, endLevel) {
 		const range = document.createRange();
 		range.setStartBefore(heading);
 		if (nextUnrelatedElement == null) {
-			range.setEndAfter(workingArea.lastChild);
+			const lastChild = workingArea.lastChild;
+			if (!lastChild) {
+				throw Error("LastChild does not exist");
+			}
+			range.setEndAfter(lastChild);
 		}
 		else {
 			range.setEndBefore(nextUnrelatedElement);
@@ -71,6 +83,9 @@ function wrapWithCardsInsideArea(workingArea, level, endLevel) {
 	}
 }
 
+/**
+ * @param {string[]} searchterms
+ */
 function replaceSynonyms(searchterms) {
 	return searchterms.map(searchterm => {
 		// Find the synonym group that contains the first value matching the searchterm
@@ -158,5 +173,9 @@ function addSearchBox() {
 	});
 }
 
-wrapWithCardsInsideArea(document.querySelector("#content"), 2, 4);
+const content = document.querySelector("#content");
+if (!content) {
+	throw Error("Content does not exist");
+}
+wrapWithCardsInsideArea(content, 2, 4);
 addSearchBox();
