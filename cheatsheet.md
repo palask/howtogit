@@ -123,6 +123,12 @@ Oldest commits first (that introduced the term): `--reverse`
 
 	git stash push --keep-index
 
+#### Stash only staged changes:
+<https://stackoverflow.com/questions/14759748/how-can-i-stash-only-staged-changes-in-git>
+
+- For git version >= 2.35: `git stash push --staged`
+- For git version < 2.35: `git stash -- $(git diff --staged --name-only)`
+
 #### Remove last stash:
 
 	git stash drop
@@ -277,21 +283,16 @@ Oldest commits first (that introduced the term): `--reverse`
 	git merge --squash [BRANCH]
 	git commit
 
-#### Remove branch locally and remotely:
-
-- Local: `git branch -d [BRANCH]`
-- Remote: `git push -d origin [BRANCH]`
-
-#### Remove local branch:
+#### Remove branch locally:
 <https://www.git-tower.com/learn/git/faq/delete-local-branch>
 
 - Safe removal (checks if merged etc.): `git branch -d [BRANCH]`
 - Force removal: `git branch -D [BRANCH]`
 
-#### Remove remote branch:
+#### Remove branch remotely:
 <https://www.git-tower.com/learn/git/faq/delete-remote-branch>
 
-`git push origin --delete [BRANCH]`
+`git push -d origin [BRANCH]`
 
 #### Remove all commits from branch on repository:
 
@@ -426,14 +427,26 @@ Oldest commits first (that introduced the term): `--reverse`
 
 ## Submodules
 
+#### Add another repository as a submodule:
+<https://www.atlassian.com/git/tutorials/git-submodule>
+
+	git submodule add [URL]
+
 #### Initialize submodules (also when new ones were added to the repo):
 <https://openmetric.org/til/programming/git-pull-with-submodule/>
 
 	git submodule update --init --recursive
 
+#### Specify branch for a submodule:
+<https://stackoverflow.com/questions/1777854/how-can-i-specify-a-branch-tag-when-adding-a-git-submodule>
+
 #### Update submodules:
 
 	git pull --recurse-submodules
+
+#### See checked out commit id for each submodule:
+
+	git submodule status
 
 #### Revert changes to all submodules:
 <https://stackoverflow.com/questions/10906554/how-do-i-revert-my-changes-to-a-git-submodule>
@@ -502,3 +515,7 @@ GitFlow Workflow: <https://www.atlassian.com/git/tutorials/comparing-workflows/g
 
 #### Exit default git editor in the terminal:
 \[esc\], `:x!`, \[enter\]
+
+#### License note
+
+Any content coming from [Stack Exchange](https://stackoverflow.com/help/licensing) (recognizable by a link leading to a Stack Exchange site like Stack Overflow between the current heading and the content) is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
