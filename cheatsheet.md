@@ -38,7 +38,7 @@ A square bracket within a command means that the brackets as well as the name in
 
 	git diff --staged
 
-### Show diff against changes since last commit:
+#### Show diff against changes since last commit:
 
 	git diff HEAD^ [FILENAME]
 
@@ -47,6 +47,7 @@ A square bracket within a command means that the brackets as well as the name in
 
 #### Search for recent commit containing a search term in its files:
 <https://stackoverflow.com/a/5816177>
+
 Oldest commits first (that introduced the term): `--reverse`
 
 	git log --all --source -S "[SEARCHTERM]"
