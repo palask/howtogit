@@ -173,9 +173,24 @@ function addSearchBox() {
 	});
 }
 
+function addCopyCommandButtons() {
+	const commands = document.querySelectorAll(".entry-card pre");
+
+	for (const command of commands) {
+		const commandText = command.textContent?.trim() ?? "";
+		const button = document.createElement("BUTTON");
+		button.addEventListener("click", () => {
+			navigator.clipboard.writeText(commandText);
+		});
+		button.textContent = "📋";
+		command.appendChild(button);
+	}
+}
+
 const content = document.querySelector("#content");
 if (!content) {
 	throw Error("Content does not exist");
 }
 wrapWithCardsInsideArea(content, 2, 4);
 addSearchBox();
+addCopyCommandButtons();
