@@ -121,7 +121,12 @@ Oldest commits first (that introduced the term): `--reverse`
 
 #### Stash only unstaged changes:
 
-	git stash push --keep-index
+	git stash --keep-index
+
+#### Stash only unstaged changes (including untracked files):
+<https://stackoverflow.com/questions/20028507/git-stash-uncached-how-to-put-away-all-unstaged-changes>
+
+	git stash --keep-index -u
 
 #### Stash only staged changes:
 <https://stackoverflow.com/questions/14759748/how-can-i-stash-only-staged-changes-in-git>
@@ -440,7 +445,8 @@ Oldest commits first (that introduced the term): `--reverse`
 #### Specify branch for a submodule:
 <https://stackoverflow.com/questions/1777854/how-can-i-specify-a-branch-tag-when-adding-a-git-submodule>
 
-#### Update submodules:
+#### Update submodules (and top repository):
+<https://stackoverflow.com/questions/75104243/git-submodule-update-remote-vs-git-pull-recurse-submodule-vs-git-submod>
 
 	git pull --recurse-submodules
 
