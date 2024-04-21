@@ -30,8 +30,7 @@
 
 // Highlight card on hover
 .card.entry-card {
-	transition-duration: 0.25s;
-	transition-property: filter;
+	transition: filter 0.25s;
 }
 
 .card.entry-card:hover {
@@ -43,4 +42,11 @@ pre {
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
+}
+pre > button {
+	opacity: 0;
+	transition: opacity 0.1s;
+}
+pre:hover > button {
+	opacity: 1;
 }

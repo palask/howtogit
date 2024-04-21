@@ -52,6 +52,10 @@ Oldest commits first (that introduced the term): `--reverse`
 
 	git log --all --source -S "[SEARCHTERM]"
 
+#### See the last changes to the Head pointer (helps to recover a deleted branch or commit)
+
+	git reflog
+
 #### Forget commited files now matched by .gitignore:
 <https://stackoverflow.com/questions/1274057/how-can-i-make-git-forget-about-a-file-that-was-tracked-but-is-now-in-gitign/19095988#19095988>
 
@@ -66,7 +70,7 @@ Oldest commits first (that introduced the term): `--reverse`
 
 #### Reset changes to a file since last commit:
 
-	git restore -- [FILE]
+	git restore [FILE]
 
 #### Reset all local changes since last commit:
 <https://docs.gitlab.com/ee/topics/git/numerous_undo_possibilities_in_git/>
@@ -77,6 +81,8 @@ Oldest commits first (that introduced the term): `--reverse`
 <https://stackoverflow.com/questions/38001223/what-is-the-difference-between-git-rm-cached-and-git-reset-file>
 
 	git rm --cached [FILE]
+
+### Patches
 
 #### Create a patch with changes of tracked files:
 <https://www.specbee.com/blogs/how-create-and-apply-patch-git-diff-and-git-apply-commands-your-drupal-website>
@@ -189,7 +195,13 @@ Oldest commits first (that introduced the term): `--reverse`
 	git reset HEAD^
 
 #### Undo last commit without keeping changes:
+
 	git reset --soft HEAD~1
+
+
+#### Undo changes of an older commit (by creating a new commit that has the opposite effect):
+
+	git revert [OLDCOMMITID]
 
 #### Add changes to older commit:
 <https://stackoverflow.com/a/27721031>
@@ -231,7 +243,7 @@ Oldest commits first (that introduced the term): `--reverse`
 
 ## Tags
 
-### List all tags
+#### List all tags
 
 	git tag
 

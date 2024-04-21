@@ -17,3 +17,6 @@ Source code for the [Git Cheatsheet](https://palask.github.io/howtogit/).
 	- https://jekyllthemes.dev/moonwalk-a-fast-and-minimalistic-blog-theme-with-clean-dark-mode/
 	- https://jekyllthemes.dev/a-simple-jekyll-theme-created-for-building-a-digital-garden-with-obsidian-and-github-pages/
 	- https://jekyllthemes.dev/galada-easy-simple-theme-for-personal-blog/
+	- https://lume.land/themes/
+	- https://themes.gohugo.io
+		- https://blowfish.page

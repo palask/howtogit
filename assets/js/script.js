@@ -2,7 +2,7 @@
 
 const synonyms = [
 	["remove", "delete", "clear"],
-	["reset", "undo", "revert", "reverse", "abort"],
+	["reset", "undo", "revert", "reverse", "abort", "discard"],
 	["remote", "origin", "upstream"],
 	["add", "append"],
 	["search", "find"]
@@ -108,7 +108,7 @@ function liveSearch() {
 	const entryCards = document.querySelectorAll(".entry-card");
 	// Locate the search input
 	const searchInput = document.querySelector("#searchbox");
-	if (!searchInput) {
+	if (!searchInput || !(searchInput instanceof HTMLInputElement)) {
 		throw Error("Searchbox does not exist");
 	}
 	const searchQuery = searchInput.value;
@@ -117,6 +117,10 @@ function liveSearch() {
 
 	const visibleParents = [];
 	for (const card of entryCards) {
+		if (!(card instanceof HTMLElement)) {
+			throw Error("Invalid card");
+		}
+
 		// Case insensitive check if all required search terms are in card and adverse search terms are not in card
 		const cardText = card.innerText.toLowerCase();
 		let validSearchTerms = 0;
