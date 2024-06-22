@@ -6,6 +6,7 @@ Source code for the [Git Cheatsheet](https://palask.github.io/howtogit/).
 
 - [ ] Add dark mode with toggle
 	- https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/adding-a-theme-to-your-github-pages-site-using-jekyll#customizing-your-themes-css
+- [ ] Server-side rendering of static js adjustments
 - [ ] Collapsible top cards at h2 and h3 levels
 - [ ] Sticky header that gets smaller (inline) when scrolling down
 - [ ] Show the headings in table of contents with responsive layout
@@ -13,6 +14,7 @@ Source code for the [Git Cheatsheet](https://palask.github.io/howtogit/).
 - [ ] Highlight square brackets for variables (Syntax highlighting)
 	- https://stackoverflow.com/questions/23226224/inline-code-syntax-highlighting-in-github-markdown
 	- https://jekyllrb.com/docs/configuration/markdown/
+- [ ] Square brackets become Input fields on click so they can be modified before copying the command
 - [ ] Try other theme or use alternative to Jekyll
 	- https://jekyllthemes.dev/moonwalk-a-fast-and-minimalistic-blog-theme-with-clean-dark-mode/
 	- https://jekyllthemes.dev/a-simple-jekyll-theme-created-for-building-a-digital-garden-with-obsidian-and-github-pages/

@@ -17,6 +17,7 @@ A square bracket within a command means that the brackets as well as the name in
 - `git add .`: Stage all changes (prepare for a commit)
 - `git commit -m [MESSAGE]`: Commit the staged changes with a message
 - `git push`: Upload local commits to origin
+- `git pull`: Download local commits from origin
 
 #### Get a remote repository
 
@@ -267,7 +268,7 @@ Oldest commits first (that introduced the term): `--reverse`
 #### Create branch from a previous commit:
 <https://stackoverflow.com/questions/2816715/branch-from-a-previous-commit-using-git>
 
-	git branch -b [BRANCH] [COMMITID]
+	git checkout -b [BRANCH] [COMMITID]
 
 #### Switch to an existing branch:
 
@@ -300,6 +301,11 @@ Oldest commits first (that introduced the term): `--reverse`
 	git checkout master
 	git merge --squash [BRANCH]
 	git commit
+
+#### Add new commits from current branch to other remote branch:
+<https://stackoverflow.com/a/51909592>
+
+	git push origin head:[BRANCH]
 
 #### Remove branch locally:
 <https://www.git-tower.com/learn/git/faq/delete-local-branch>
