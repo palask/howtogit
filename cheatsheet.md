@@ -31,187 +31,204 @@ A square bracket within a command means that the brackets as well as the name in
 
 ## Changes, Search & Gitignore
 
-#### Exclude files by negative wildcard from diff (example: exclude pdfs):
+#### Exclude files by negative wildcard from diff (example: exclude pdfs)
 
 	git diff ':!*.pdf'
 
-#### Show diff of staged files:
+#### Show diff of staged files
 
 	git diff --staged
 
-#### Show diff against changes since last commit:
+#### Show diff against changes since last commit
 
 	git diff HEAD^ [FILENAME]
 
-#### Show diff for one file:
+#### Show diff for one file
 <https://stackoverflow.com/questions/5586383/how-to-diff-one-file-to-an-arbitrary-version-in-git>
 
-#### Search for recent commit containing a search term in its files:
+#### Search for commit in all branches where a search term was added or removed in its files
 <https://stackoverflow.com/a/5816177>
 
 Oldest commits first (that introduced the term): `--reverse`
 
 	git log --all --source -S "[SEARCHTERM]"
 
+#### Search for commit containing any change to the search term in its files
+<https://stackoverflow.com/questions/2928584/how-to-grep-search-through-committed-code-in-the-git-history>
+
+Show with diff: `-p`
+
+	git log -G"[SEARCHTERM]" -- [PATH]
+
+#### Search for lines in commits containing the search term in its files under a specified path
+
+	git grep "[SEARCHTERM]" $(git rev-list --all -- [PATH]) -- [PATH]
+
 #### See the last changes to the Head pointer (helps to recover a deleted branch or commit)
 
 	git reflog
 
-#### Forget commited files now matched by .gitignore:
+#### Forget commited files now matched by .gitignore
 <https://stackoverflow.com/questions/1274057/how-can-i-make-git-forget-about-a-file-that-was-tracked-but-is-now-in-gitign/19095988#19095988>
 
-#### Global or repo-specific .gitignore just for the current user:
+#### Global or repo-specific .gitignore just for the current user
 <https://stackoverflow.com/a/5724484>
 
 - Global: `git config --global core.excludesfile $HOME/.gitignore`
 - Repo-specific: Edit `.git/info/exclude`
 
-#### Get all modified files in branch:
+#### Get all modified files in branch
 <https://stackoverflow.com/questions/10641361/get-all-files-that-have-been-modified-in-git-branch>
 
-#### Reset changes to a file since last commit:
+#### Reset changes to a file since last commit
 
 	git restore [FILE]
 
-#### Reset all local changes since last commit:
+#### Remove the changes to a file in the last commit
+<https://stackoverflow.com/a/44074005>
+
+	git reset HEAD^ [FILE]
+	git commit --amend
+
+#### Reset all local changes since last commit
 <https://docs.gitlab.com/ee/topics/git/numerous_undo_possibilities_in_git/>
 
 	git reset -–hard
 
-#### Stage a file for removal without removing it from the working directory:
+#### Stage a file for removal without removing it from the working directory
 <https://stackoverflow.com/questions/38001223/what-is-the-difference-between-git-rm-cached-and-git-reset-file>
 
 	git rm --cached [FILE]
 
 ### Patches
 
-#### Create a patch with changes of tracked files:
+#### Create a patch with changes of tracked files
 <https://www.specbee.com/blogs/how-create-and-apply-patch-git-diff-and-git-apply-commands-your-drupal-website>
 
 	git diff > changes.patch
 
-#### Create a patch with all staged changes:
+#### Create a patch with all staged changes
 
 	git diff --staged > changes.patch
 
-#### Apply patch with changes:
+#### Apply patch with changes
 <https://stackoverflow.com/questions/14509950/my-diff-contains-trailing-whitespace-how-to-get-rid-of-it>
 
 	git apply --reject --whitespace=fix changes.patch
 
-#### Undo apply patch:
+#### Undo apply patch
 
 	git apply changes.patch --reverse
 
 ### Stashes
 
-#### Stash only one file:
+#### Stash only one file
 <https://stackoverflow.com/questions/3040833/stash-only-one-file-out-of-multiple-files-that-have-changed-with-git>
 
 	git stash push -p
 
-#### Unstash only some files:
+#### Unstash only some files
 <https://stackoverflow.com/questions/15264553/how-to-unstash-only-certain-files>
 
-#### Show changes in stash by index number:
+#### Show changes in stash by index number
 <https://opensource.com/article/21/4/git-stash>
 
 	git stash show stash@{[INDEX]} -p
 
-#### Stash multiple files:
+#### Stash multiple files
 
 	git stash -- [FILE1] [FILE2]
 
-#### Undo stash pop with conflict:
+#### Undo stash pop with conflict
 
 	git reset HEAD .
 	git checkout -f
 
-#### Stash only unstaged changes:
+#### Stash only unstaged changes
 
 	git stash --keep-index
 
-#### Stash only unstaged changes (including untracked files):
+#### Stash only unstaged changes (including untracked files)
 <https://stackoverflow.com/questions/20028507/git-stash-uncached-how-to-put-away-all-unstaged-changes>
 
 	git stash --keep-index -u
 
-#### Stash only staged changes:
+#### Stash only staged changes
 <https://stackoverflow.com/questions/14759748/how-can-i-stash-only-staged-changes-in-git>
 
 - For git version >= 2.35: `git stash push --staged`
 - For git version < 2.35: `git stash -- $(git diff --staged --name-only)`
 
-#### Remove last stash:
+#### Remove last stash
 
 	git stash drop
 
-#### Apply and remove last created stash:
+#### Apply and remove last created stash
 
 	git stash pop
 
-#### Apply single stash by index number:
+#### Apply single stash by index number
 
 	git stash apply [INDEX]
 	git stash drop stash@{[INDEX]}
 
-#### Stash single file with message:
+#### Stash single file with message
 <https://stackoverflow.com/questions/12420924/stash-just-a-single-file>
 
 	git stash push -m "[MESSAGE]" [FILE]
 
-#### Save stash by index number as a patch:
+#### Save stash by index number as a patch
 <https://stackoverflow.com/questions/3973034/export-a-stash-to-another-computer>
 
 	git stash show stash@{[INDEX]} -p > changes.patch
 
 ## Commits
 
-#### Remove last commit locally and remotely:
+#### Remove last commit locally and remotely
 
 1. Remove commit locally: `git reset HEAD^`
 2. Force-push the new HEAD commit: `git push origin +HEAD`
 
-#### See changes in a commit:
+#### See changes in a commit
 <https://stackoverflow.com/questions/17563726/how-can-i-see-the-changes-in-a-git-commit>
 
-#### Amend to last commit:
+#### Amend to last commit
 <https://www.atlassian.com/de/git/tutorials/rewriting-history>
 
-#### Change last commit message:
+#### Change last commit message
 <https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/changing-a-commit-message>
 
 	git commit --amend
 
-#### Change message of older commit:
+#### Change message of older commit
 <https://docs.github.com/de/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/changing-a-commit-message>
 
 1. Show last n commits (replace n with number): `git rebase -i HEAD~n`
 2. Replace "pick" with "reword" before respective commit.
 3. Save files and edit the commit file that opens and save it as well.
 
-#### Undo commit and keep changes:
+#### Undo commit and keep changes
 <https://stackoverflow.com/questions/15772134/can-i-delete-a-git-commit-but-keep-the-changes>
 
 	git reset HEAD^
 
-#### Undo last commit without keeping changes:
+#### Undo last commit without keeping changes
 
 	git reset --soft HEAD~1
 
 
-#### Undo changes of an older commit (by creating a new commit that has the opposite effect):
+#### Undo changes of an older commit (by creating a new commit that has the opposite effect)
 
 	git revert [OLDCOMMITID]
 
-#### Add changes to older commit:
+#### Add changes to older commit
 <https://stackoverflow.com/a/27721031>
 
 	git add FIXEDFILES
 	git commit --fixup=[OLDCOMMITID]
 	git rebase -i --autosquash [OLDCOMMITID]^
 
-#### Remove changes to file from older commit:
+#### Remove changes to file from older commit
 <https://stackoverflow.com/a/32528151>
 
 1. `git rebase -i [OLDCOMMITID]^1`
@@ -221,21 +238,29 @@ Oldest commits first (that introduced the term): `--reverse`
 5. `git commit --amend`
 6. `git rebase --continue`
 
-#### Remove older commit:
+#### Remove older commit
 
 1. `git rebase -i HEAD~[N]` to list last *N* commits
 2. Remove the line of the commit that shall be deleted
 
-#### Remove initial commit if there are no other commits, but keep changes staged:
+#### Remove initial commit if there are no other commits, but keep changes staged
 
 	git update-ref -d HEAD
 
-#### Add single commit from other branch (cherry-pick):
+#### Add single commit from other branch (cherry-pick)
 <https://stackoverflow.com/questions/9339429/what-does-cherry-picking-a-commit-with-git-mean>
 
 	git cherry-pick [COMMITID]
 
-#### Sign commits with ssh key:
+#### Move last *N* commits to new (other) branch
+<https://stackoverflow.com/questions/1628563/move-the-most-recent-commits-to-a-new-branch-with-git>
+
+	git branch [NEWBRANCH]
+	git checkout [OLDBRANCH]
+	git reset --hard HEAD~[N]
+	git checkout [NEWBRANCH]
+
+#### Sign commits with ssh key
 <https://git.openlogisticsfoundation.org/help/user/project/repository/signed_commits/ssh.md>
 
 	git config --global gpg.format ssh
@@ -248,77 +273,86 @@ Oldest commits first (that introduced the term): `--reverse`
 
 	git tag
 
-#### Add tag for the current commit:
+#### Add tag for the current commit
 <https://stackoverflow.com/questions/18216991/create-a-tag-in-a-github-repository>
 
 1. `git tag [TAGNAME]`
 2. To push all tags: `git push origin --tags`
 
-#### Add tag for a commit:
+#### Add tag for a commit
 
 1. `git tag [TAGNAME] [COMMITID]`
 2. To push all tags: `git push origin --tags`
 
+#### Remove tag locally
+
+	git tag --delete [TAGNAME]
+
+#### Remove tag remotely
+<https://stackoverflow.com/questions/5480258/how-can-i-delete-a-remote-tag>
+
+	git push origin :refs/tags/[TAGNAME]
+
 ## Branches (Creating, Merging & Co.)
 
-#### Create branch and switch to it:
+#### Create branch and switch to it
 
 	git checkout -b [BRANCH]
 
-#### Create branch from a previous commit:
+#### Create branch from a previous commit
 <https://stackoverflow.com/questions/2816715/branch-from-a-previous-commit-using-git>
 
 	git checkout -b [BRANCH] [COMMITID]
 
-#### Switch to an existing branch:
+#### Switch to an existing branch
 
 	git checkout [BRANCH]
 
-#### Switch to last active branch (from detached head):
+#### Switch to last active branch (from detached head)
 <https://stackoverflow.com/questions/11801071/git-how-to-return-from-detached-head-state>
 
 	git checkout -
 
-#### Switch to remote branch:
+#### Switch to remote branch
 <https://www.git-tower.com/learn/git/faq/checkout-remote-branch>
 
 	git checkout --track [REMOTENAME]/[BRANCHNAME]
 
-#### List all local branches:
+#### List all local branches
 
 	git branch
 
-#### List all remote branches:
+#### List all remote branches
 
 	git branch -a
 
-#### Merge branch into current branch (add commits from other branch):
+#### Merge branch into current branch (add commits from other branch)
 
 	git merge [BRANCH]
 
-#### Merge multiple commits as one onto another branch:
+#### Merge multiple commits as one onto another branch
 
 	git checkout master
 	git merge --squash [BRANCH]
 	git commit
 
-#### Add new commits from current branch to other remote branch:
+#### Add new commits from current branch to other remote branch
 <https://stackoverflow.com/a/51909592>
 
 	git push origin head:[BRANCH]
 
-#### Remove branch locally:
+#### Remove branch locally
 <https://www.git-tower.com/learn/git/faq/delete-local-branch>
 
 - Safe removal (checks if merged etc.): `git branch -d [BRANCH]`
 - Force removal: `git branch -D [BRANCH]`
 
-#### Remove branch remotely:
+#### Remove branch remotely
 <https://www.git-tower.com/learn/git/faq/delete-remote-branch>
 
 `git push -d origin [BRANCH]`
 
-#### Remove all commits from branch on repository:
+#### Remove all commits from branch on repository
 
 1. Create empty folder
 2. `git init`
@@ -327,43 +361,43 @@ Oldest commits first (that introduced the term): `--reverse`
 5. `git branch --set-upstream [BRANCH] origin/[BRANCH]`
 6. `git push -f`
 
-#### Fix origin of current branch (after rename):
+#### Fix origin of current branch (after rename)
 <https://stackoverflow.com/a/48100062>
 
-#### Squash all commits on branch:
+#### Squash all commits on branch
 <https://stackoverflow.com/questions/25356810/git-how-to-squash-all-commits-on-branch>
 
-#### Squash and rebase:
+#### Squash and rebase
 <https://www.jenweber.dev/how-to-squash-and-rebase/>
 
-#### Put last commit on new branch:
+#### Put last commit on new branch
 <https://stackoverflow.com/questions/1628563/move-the-most-recent-commits-to-a-new-branch-with-git>
 
-#### Rename branch (that you are currently working on):
+#### Rename branch (that you are currently working on)
 <https://stackoverflow.com/questions/6591213/how-do-i-rename-a-local-git-branch>
 
 	git branch -m [NEWNAME]
 
-#### Change remote for one branch (e.g. for branches on forks):
+#### Change remote for one branch (e.g. for branches on forks)
 <https://stackoverflow.com/questions/4878249/how-to-change-the-remote-a-branch-is-tracking>
 
     git fetch [REMOTENAME]
     git branch [BRANCHNAME] --set-upstream-to [REMOTENAME]/[BRANCHNAME]
 
-#### Merge and favor changes of own or other branch:
+#### Merge and favor changes of own or other branch
 <https://stackoverflow.com/a/33569970>
 
-#### Rename master to main in new repo:
+#### Rename master to main in new repo
 <https://stackoverflow.com/questions/64787301/git-init-b-branch-name-command-in-terminal-is-throwing-an-unknown-switch/65415870#65415870>
 
 ### Rebasing
 
-#### Rebase branch onto other branch:
+#### Rebase branch onto other branch
 
 	git rebase [OTHERBRANCH]
 	git push --force-with-lease
 
-#### Rebase branch onto (previous) commit of other branch:
+#### Rebase branch onto (previous) commit of other branch
 
 	git rebase --onto [COMMITID] [OTHERBRANCH]
 	git push --force-with-lease
@@ -376,65 +410,65 @@ Oldest commits first (that introduced the term): `--reverse`
 
 	git rebase -i --root
 
-#### Change base of branch:
+#### Change base of branch
 <https://stackoverflow.com/a/10853956>
 
 #### Abort rebase:
 
 	git rebase --abort
 
-#### Rebase with merge conflict handling:
+#### Rebase with merge conflict handling
 <https://demisx.github.io/git/rebase/2015/07/02/git-rebase-keep-my-branch-changes.html>
 
-#### Rebase without changing commit dates when there are merge conflicts:
+#### Rebase without changing commit dates when there are merge conflicts
 <https://stackoverflow.com/a/2976598>
 
 ## Remote (Origin / Upstream)
 
-#### Pull and use incoming changes in case of conflicts:
+#### Pull and use incoming changes in case of conflicts
 
 	git pull -X theirs
 
-#### Use incoming changes in case of conflicts in a file:
+#### Use incoming changes in case of conflicts in a file
 
 	git checkout --theirs [FILE]
 
-#### Fetch remote branch:
+#### Fetch remote branch
 
 	git fetch origin [BRANCH]
 
-#### Fetch all branches:
+#### Fetch all branches
 
 	git fetch --all
 
-#### Change remote for all branches and push everything:
+#### Change remote for all branches and push everything
 <https://stackoverflow.com/questions/18801147/changing-the-git-remote-push-to-default>
 
 	git push -u [REMOTENAME] --all
 
-#### Change remote url:
+#### Change remote url
 <https://stackoverflow.com/questions/2432764/how-do-i-change-the-uri-url-for-a-remote-git-repository>
 
-#### Force pull (hard reset to origin, get clean state) when origin commits were overwritten/rebased:
+#### Force pull (hard reset to origin, get clean state) when origin commits were overwritten/rebased
 <https://stackoverflow.com/questions/1125968/how-do-i-force-git-pull-to-overwrite-local-files>
 
 	git reset --hard origin/[BRANCH]
 
-#### Pull changes of another branch (without checkout):
+#### Pull changes of another branch (without checkout)
 <https://stackoverflow.com/questions/18857570/git-pull-without-checkout>
 
 	git fetch origin [BRANCH]:[BRANCH]
 
 ## Forks
 
-#### Working on forks:
+#### Working on forks
 <https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/configuring-a-remote-for-a-fork>
 
 <https://docs.github.com/en/get-started/quickstart/fork-a-repo>
 
 <https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow>
 
-#### Change remote to fork:
+#### Change remote to fork
 <https://gist.github.com/jagregory/710671>
 
 	git remote -v
@@ -442,7 +476,7 @@ Oldest commits first (that introduced the term): `--reverse`
 	git remote add origin [FORKURL]
 	git fetch origin
 
-#### Checkout a branch from a fork:
+#### Checkout a branch from a fork
 <https://stackoverflow.com/questions/1783405/how-do-i-check-out-a-remote-git-branch>
 
 	git remote add [REMOTENAME] [REMOTEURL]
@@ -451,46 +485,46 @@ Oldest commits first (that introduced the term): `--reverse`
 
 ## Submodules
 
-#### Add another repository as a submodule:
+#### Add another repository as a submodule
 <https://www.atlassian.com/git/tutorials/git-submodule>
 
 	git submodule add [URL]
 
-#### Initialize submodules (also when new ones were added to the repo):
+#### Initialize submodules (also when new ones were added to the repo)
 <https://openmetric.org/til/programming/git-pull-with-submodule/>
 
 	git submodule update --init --recursive
 
-#### Specify branch for a submodule:
+#### Specify branch for a submodule
 <https://stackoverflow.com/questions/1777854/how-can-i-specify-a-branch-tag-when-adding-a-git-submodule>
 
-#### Update submodules (and top repository):
+#### Update submodules (and top repository)
 <https://stackoverflow.com/questions/75104243/git-submodule-update-remote-vs-git-pull-recurse-submodule-vs-git-submod>
 
 	git pull --recurse-submodules
 
-#### See checked out commit id for each submodule:
+#### See checked out commit id for each submodule
 
 	git submodule status
 
-#### Revert changes to all submodules:
+#### Revert changes to all submodules
 <https://stackoverflow.com/questions/10906554/how-do-i-revert-my-changes-to-a-git-submodule>
 
 	git submodule foreach --recursive git reset --hard
 
 ## Config
 
-#### Initial config:
+#### Initial config
 
 	git config --global init.defaultBranch main
 	git config --global user.email "[EMAIL]"
 	git config --global user.name "[USERNAME]"
 
-#### Show full config:
+#### Show full config
 
 	git config --list
 
-#### Change author in previous commits:
+#### Change author in previous commits
 <https://www.git-tower.com/learn/git/faq/change-author-name-email>
 
 1. `git rebase -i` ([Interactive rebasing](#interactive-rebasing))
@@ -499,10 +533,10 @@ Oldest commits first (that introduced the term): `--reverse`
 	1. `git commit --amend --author="[USERNAME] <[EMAIL]>" --no-edit`
 	2. `git rebase --continue`
 
-#### Multiple author identities (different identity per repo):
+#### Multiple author identities (different identity per repo)
 <https://garrit.xyz/posts/2023-10-13-organizing-multiple-git-identities>
 
-#### Useful defaults:
+#### Useful defaults
 <https://spin.atomicobject.com/2020/05/05/git-configurations-default/>
 <https://jvns.ca/blog/2024/02/16/popular-git-config-options/>
 
@@ -510,7 +544,7 @@ Oldest commits first (that introduced the term): `--reverse`
 	git config --global diff.colorMoved zebra
 	git config --global rebase.autosquash true
 
-#### Git LFS:
+#### Git LFS
 
 1. Install:
 	1. Install PackageCloud: <https://git-lfs.github.com/>
@@ -518,7 +552,7 @@ Oldest commits first (that introduced the term): `--reverse`
 	3. `git lfs install`
 2. Download LFS files in repo: `git lfs pull`
 
-#### autoSetupRemote:
+#### autoSetupRemote
 <https://twitter.com/SantoshYadavDev/status/1558086948484530177>
 
 ## More
@@ -535,10 +569,10 @@ GitFlow Workflow: <https://www.atlassian.com/git/tutorials/comparing-workflows/g
 
 - <https://github.com/jesseduffield/lazygit>
 
-#### VS Code Compare Changes to main:
+#### VS Code Compare Changes to main
 <https://stackoverflow.com/questions/44009551/is-there-a-way-to-see-git-diff-from-origin-master-using-visual-studio-code>
 
-#### Exit default git editor in the terminal:
+#### Exit default git editor in the terminal
 \[esc\], `:x!`, \[enter\]
 
 #### License note
