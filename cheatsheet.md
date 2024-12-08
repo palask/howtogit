@@ -200,10 +200,15 @@ Show with diff: `-p`
 
 	git commit --amend
 
+#### Add changes of a commit to the commit before it
+
+1. Show last N commits (replace N with number): `git rebase -i HEAD~[N]`
+2. Replace "pick" with "f" for commit with additional changes
+
 #### Change message of older commit
 <https://docs.github.com/de/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/changing-a-commit-message>
 
-1. Show last n commits (replace n with number): `git rebase -i HEAD~n`
+1. Show last N commits (replace N with number): `git rebase -i HEAD~[N]`
 2. Replace "pick" with "reword" before respective commit.
 3. Save files and edit the commit file that opens and save it as well.
 
@@ -215,7 +220,6 @@ Show with diff: `-p`
 #### Undo last commit without keeping changes
 
 	git reset --soft HEAD~1
-
 
 #### Undo changes of an older commit (by creating a new commit that has the opposite effect)
 
@@ -259,13 +263,6 @@ Show with diff: `-p`
 	git checkout [OLDBRANCH]
 	git reset --hard HEAD~[N]
 	git checkout [NEWBRANCH]
-
-#### Sign commits with ssh key
-<https://git.openlogisticsfoundation.org/help/user/project/repository/signed_commits/ssh.md>
-
-	git config --global gpg.format ssh
-	git config --global commit.gpgsign true
-	git config --global user.signingkey ~/.ssh/[KEYFILE].pub
 
 ## Tags
 
@@ -543,6 +540,7 @@ Show with diff: `-p`
 	git config --global pull.rebase true
 	git config --global diff.colorMoved zebra
 	git config --global rebase.autosquash true
+	git config --global core.editor "nano"
 
 #### Git LFS
 
@@ -551,6 +549,13 @@ Show with diff: `-p`
 	2. `sudo apt install git-lfs`
 	3. `git lfs install`
 2. Download LFS files in repo: `git lfs pull`
+
+#### Sign commits with ssh key
+<https://git.openlogisticsfoundation.org/help/user/project/repository/signed_commits/ssh.md>
+
+	git config --global gpg.format ssh
+	git config --global commit.gpgsign true
+	git config --global user.signingkey ~/.ssh/[KEYFILE].pub
 
 #### autoSetupRemote
 <https://twitter.com/SantoshYadavDev/status/1558086948484530177>
