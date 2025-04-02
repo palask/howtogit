@@ -130,6 +130,10 @@ Show with diff: `-p`
 #### Unstash only some files
 <https://stackoverflow.com/questions/15264553/how-to-unstash-only-certain-files>
 
+#### Show all stashes as a list
+
+	git stash list
+
 #### Show changes in stash by index number
 <https://opensource.com/article/21/4/git-stash>
 
