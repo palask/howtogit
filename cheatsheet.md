@@ -95,6 +95,10 @@ Show with diff: `-p`
 
 	git reset -–hard
 
+#### Unstage all added files (undo every git add since last commit)
+
+	git reset
+
 #### Stage a file for removal without removing it from the working directory
 <https://stackoverflow.com/questions/38001223/what-is-the-difference-between-git-rm-cached-and-git-reset-file>
 
