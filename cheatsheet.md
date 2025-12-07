@@ -13,21 +13,45 @@ A square bracket within a command means that the brackets as well as the name in
 
 #### Setup a new repository (project) and work on it
 
-- `git init`: Start a new repository
-- `git add .`: Stage all changes (prepare for a commit)
-- `git commit -m [MESSAGE]`: Commit the staged changes with a message
-- `git push`: Upload local commits to origin
-- `git pull`: Download local commits from origin
+Start a new repository:
+
+	git init
+
+Stage all changes (prepare for a commit):
+
+	git add .
+
+Commit the staged changes with a message:
+
+	git commit -m [MESSAGE]
+
+Upload local commits to origin:
+
+	git push
+
+Download local commits from origin:
+
+	git pull
 
 #### Get a remote repository
 
-- `git clone [URL]`: Copy a project onto your local computer
-- `git clone [URL] -b [BRANCH]`: Clone from (and switch to) specified branch
+Copy a project onto your local computer:
+
+	git clone [URL]
+
+Clone from (and switch to) specified branch:
+
+	git clone [URL] -b [BRANCH]
 
 #### Show information about the repository
 
-- `git status`: Check your current repository state
-- `git log --pretty=oneline`: Show a graph of commit history
+Check your current repository state:
+
+	git status
+
+Show a graph of commit history:
+
+	git log --pretty=oneline
 
 ## Changes, Search & Gitignore
 
@@ -74,8 +98,13 @@ Show with diff: `-p`
 #### Global or repo-specific .gitignore just for the current user
 <https://stackoverflow.com/a/5724484>
 
-- Global: `git config --global core.excludesfile $HOME/.gitignore`
-- Repo-specific: Edit `.git/info/exclude`
+Global:
+
+	git config --global core.excludesfile $HOME/.gitignore
+
+Repo-specific:
+
+- Edit `.git/info/exclude`
 
 #### Get all modified files in branch
 <https://stackoverflow.com/questions/10641361/get-all-files-that-have-been-modified-in-git-branch>
@@ -164,8 +193,13 @@ Show with diff: `-p`
 #### Stash only staged changes
 <https://stackoverflow.com/questions/14759748/how-can-i-stash-only-staged-changes-in-git>
 
-- For git version >= 2.35: `git stash push --staged`
-- For git version < 2.35: `git stash -- $(git diff --staged --name-only)`
+For git version >= 2.35:
+
+	git stash push --staged
+
+For git version < 2.35:
+
+	git stash -- $(git diff --staged --name-only)
 
 #### Remove last stash
 
@@ -194,8 +228,17 @@ Show with diff: `-p`
 
 #### Remove last commit locally and remotely
 
-1. Remove commit locally: `git reset HEAD^`
-2. Force-push the new HEAD commit: `git push origin +HEAD`
+1. Remove commit locally:
+
+	```
+	git reset HEAD^
+	```
+
+2. Force-push the new HEAD commit
+
+	```
+	git push origin +HEAD
+	```
 
 #### See changes in a commit
 <https://stackoverflow.com/questions/17563726/how-can-i-see-the-changes-in-a-git-commit>
@@ -210,13 +253,23 @@ Show with diff: `-p`
 
 #### Add changes of a commit to the commit before it
 
-1. Show last N commits (replace N with number): `git rebase -i HEAD~[N]`
+1. Show last N commits (replace N with number)
+
+	```
+	git rebase -i HEAD~[N]
+	```
+
 2. Replace "pick" with "f" for commit with additional changes
 
 #### Change message of older commit
 <https://docs.github.com/de/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/changing-a-commit-message>
 
-1. Show last N commits (replace N with number): `git rebase -i HEAD~[N]`
+1. Show last N commits (replace N with number):
+
+	```
+	git rebase -i HEAD~[N]
+	```
+
 2. Replace "pick" with "reword" before respective commit.
 3. Save files and edit the commit file that opens and save it as well.
 
@@ -243,16 +296,32 @@ Show with diff: `-p`
 #### Remove changes to file from older commit
 <https://stackoverflow.com/a/32528151>
 
-1. `git rebase -i [OLDCOMMITID]^1`
+1. Start the interactive rebasing with one of:
+
+	```
+	git rebase -i [OLDCOMMITID]^ # For any but the first commit
+	git rebase -i root # If the older commit is the first one
+	```
+
 2. Mark the problem commit for edit in the editor by changing `pick` to `e`.
-3. `git show -- [BADFILE] | git apply -R`
-4. `git add [BADFILE]`
-5. `git commit --amend`
-6. `git rebase --continue`
+
+3. Edit the commit like this:
+
+	```
+	git show -- [BADFILE] | git apply -R
+	git add [BADFILE]
+	git commit --amend
+	git rebase --continue
+	```
 
 #### Remove older commit
 
-1. `git rebase -i HEAD~[N]` to list last *N* commits
+1. List the last *N* commits:
+
+	```
+	git rebase -i HEAD~[N]
+	```
+
 2. Remove the line of the commit that shall be deleted
 
 #### Remove initial commit if there are no other commits, but keep changes staged
@@ -278,22 +347,28 @@ Show with diff: `-p`
 
 	git tag
 
-#### Add tag for the current commit
+#### Add a tag for the current commit
 <https://stackoverflow.com/questions/18216991/create-a-tag-in-a-github-repository>
 
-1. `git tag [TAGNAME]`
-2. To push all tags: `git push origin --tags`
+	git tag [TAGNAME]
 
-#### Add tag for a commit
+To push all tags:
 
-1. `git tag [TAGNAME] [COMMITID]`
-2. To push all tags: `git push origin --tags`
+	git push origin --tags
 
-#### Remove tag locally
+#### Add a tag for a commit
+
+	git tag [TAGNAME] [COMMITID]
+
+To push all tags:
+
+	git push origin --tags
+
+#### Remove a tag locally
 
 	git tag --delete [TAGNAME]
 
-#### Remove tag remotely
+#### Remove a tag remotely
 <https://stackoverflow.com/questions/5480258/how-can-i-delete-a-remote-tag>
 
 	git push origin :refs/tags/[TAGNAME]
@@ -349,22 +424,28 @@ Show with diff: `-p`
 #### Remove branch locally
 <https://www.git-tower.com/learn/git/faq/delete-local-branch>
 
-- Safe removal (checks if merged etc.): `git branch -d [BRANCH]`
-- Force removal: `git branch -D [BRANCH]`
+Safe removal (checks if merged etc.):
+
+	git branch -d [BRANCH]
+
+Force removal:
+
+	git branch -D [BRANCH]
 
 #### Remove branch remotely
 <https://www.git-tower.com/learn/git/faq/delete-remote-branch>
 
-`git push -d origin [BRANCH]`
+	git push -d origin [BRANCH]
 
 #### Remove all commits from branch on repository
 
-1. Create empty folder
-2. `git init`
-3. `git commit --allow-empty -m "Initial commit"`
-4. `git remote add origin [URL]`
-5. `git branch --set-upstream [BRANCH] origin/[BRANCH]`
-6. `git push -f`
+First create an empty folder and navigate into it, then:
+
+	git init
+	git commit --allow-empty -m "Initial commit"
+	git remote add origin [URL]
+	git branch --set-upstream [BRANCH] origin/[BRANCH]
+	git push -f
 
 #### Fix origin of current branch (after rename)
 <https://stackoverflow.com/a/48100062>
@@ -386,8 +467,8 @@ Show with diff: `-p`
 #### Change remote for one branch (e.g. for branches on forks)
 <https://stackoverflow.com/questions/4878249/how-to-change-the-remote-a-branch-is-tracking>
 
-    git fetch [REMOTENAME]
-    git branch [BRANCHNAME] --set-upstream-to [REMOTENAME]/[BRANCHNAME]
+	git fetch [REMOTENAME]
+	git branch [BRANCHNAME] --set-upstream-to [REMOTENAME]/[BRANCHNAME]
 
 #### Merge and favor changes of own or other branch
 <https://stackoverflow.com/a/33569970>
